@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE
 )
+
 library("tidyverse")
 library("readxl")
 library("dataDownloader")
@@ -24,7 +25,7 @@ library("vegan")
 library("ggvegan")
 library("googlesheets")
 
-source("community/start_here.R")
+# source("community/start_here.R") this is not working
 
 knitr::read_chunk("Figures_ChinaDataPaper.R")
 knitr::read_chunk("climate/R/TomstLoggers.R")
