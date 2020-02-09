@@ -25,7 +25,6 @@ library("vegan")
 library("ggvegan")
 library("googlesheets")
 
-# source("community/start_here.R") this is not working
 
 knitr::read_chunk("Figures_ChinaDataPaper.R")
 knitr::read_chunk("climate/R/TomstLoggers.R")
@@ -38,7 +37,7 @@ theme_set(theme_bw(base_size = 12))
 ```
 # TRANSPLANT EXPERIMENT GONGGA MOUNTAIN - CHINA
 
-## STUDY AND SITE INFROMATION
+## STUDY AND SITE INFORMATION
 The transplant study is located in the Gongga Mountains in Sichuan Province, south-west China. The study contains four sites spanning from 3000 to 4130 m a.s.l. along an elevational gradient. The vegetation ranges from coniferous-broadleaved forest to alpine meadows.
 
 ```{r echo=FALSE, eval = FALSE}
@@ -87,18 +86,32 @@ The data was processed and analysed using R. All code is stored on github: https
 To download the data, the following function can be used:
 
 ```{r eval=FALSE}
-devtools::install_github("Between-the-Fjords/dataDownloader")
-library("dataDownloader")
+# devtools::install_github("Between-the-Fjords/dataDownloader")
+# library("dataDownloader")
 ```
 
 
-
 ```{r eval=FALSE}
+
 #Download files from OSF
+#biomass 2015 (this are raw data)
 get_file(node = "f3knq",
          file = "biomass2015.xls",
          path = "biomass/data",
          remote_path = "RawData")
+# China traits: Full trait data set used in Henn et al. 2018
+get_file(node = "emzgf",
+         file = "PFTC1.2_China_2015_2016_Traits.csv",
+         path = "traits/data_cleaned")
+
+# China community data from the transplants:
+get_file(node = "4hjzu",
+         file = "transplant.sqlite",
+         path = "community/data")
+
+
+source("community/start_here.R") 
+
 ```
 
 Use the following nodes, files and remote path to download the data:
@@ -219,6 +232,12 @@ All data was manually entered from into digital worksheets, and manually proofre
 All data cleaning and checking was done using code. The data was checked and corrected for spelling mistakes and mislabeled. Missing information (e.g. PlotID, Site) were added if possible. The data was then checked visually to detect apparent measurement errors. Unrealistic values were removed. For the trait data this included leaves with leaf dry matter values higher than 1 g/g, leaves with specific leaf area values less than 5 cm2 /g or greater than 500 cm2 /g and leaf nitrogen values higher than 6.4%. The nitrogen cutoff value was chosen based on the highest published leaf nitrogen values found in the Botanical Information and Ecology Network (Enquist et al., 2009) for the genera in our study.
 
 Over the years of collecting this extensive data set, different people were involved, which increases the risk of observation errors. In particular, species can be misidentified (i.e., sterile graminoids) or might be overlooked in one of the observations. These errors will result in pseudo-turnover in the plant community data. To detect such errors, we compared each recorded species in each subplot over the 5 years (subturf_maps.Rmd). We used the subplots to assign unidentified or missing species if there was a record of the species in the previous and following year. Further, we re-estimated species cover in cases where cover was either too low or high to be real when comparing with other years, and replaced these values with the mean cover from the previous and following year. We did such re-estimates in totally 48 occasions (c. 1%) of the whole 5 years dataset.
+
+
+```{r}
+source("community/start_here.R") 
+```
+
 
 
 ##### Diversity along elevational gradient
