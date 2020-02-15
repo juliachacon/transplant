@@ -372,7 +372,7 @@ A different way of displaying the distribution of the data is using boxplots. Bo
 TraitBoxp <- traitsLong %>% 
   filter(!is.na(Value)) %>% 
   mutate(Traits = factor(Traits, levels = c("Wet_Mass_g.log", "Dry_Mass_g.log", "Leaf_Thickness_Ave_mm.log", "Leaf_Area_cm2.log", "SLA_cm2_g", "LDMC","P_percent", "C_percent", "N_percent", "CN_ratio", "dN15_percent", "dC13_percent")))  %>% 
- mutate(Site = factor(Site, levels = c("H", "A", "M", "L"))) %>% 
+ mutate(Site = factor(Site, levels = c("L", "M", "A", "H"))) %>% 
  ggplot(aes(x=Site, y = Value, fill = Site)) +
  geom_boxplot() +
  scale_fill_brewer(palette = "RdBu", direction = -1,    labels=c("High alpine", "Alpine", "Middle", "Lowland"))+
@@ -465,7 +465,7 @@ traitsWideL <- traitsLeaf %>%
          Dry_Mass_g.log = log(Dry_Mass_g),
          Leaf_Thickness_Ave_mm.log = log(Leaf_Thickness_Ave_mm),
          Leaf_Area_cm2.log = log(Leaf_Area_cm2)) %>% 
-  mutate(Site = factor(Site, levels = c("H", "A", "M", "L"))) 
+  mutate(Site = factor(Site, levels = c("L", "M", "A", "H"))) 
 ```
 
 Step 2: New format to the leaf traits data, with traits and values in two columns.
@@ -656,6 +656,7 @@ pd <- position_dodge(0.4)
 
 TraitsCWM <- summarize.traits.cwm.L  %>% 
   mutate(Traits = factor(Traits, levels = c("Wet_Mass_g.log", "Dry_Mass_g.log", "Leaf_Thickness_Ave_mm.log", "Leaf_Area_cm2.log", "SLA_cm2_g", "LDMC", "P_percent", "C_percent", "N_percent", "CN_ratio", "dN15_percent", "dC13_percent"))) %>% 
+  mutate(originSiteID = factor(originSiteID, levels = c("L", "M", "A", "H"))) %>%
   ggplot(aes(x = originSiteID, y=CWM)) +
   geom_point(position=pd, shape=17, colour="blue") +
   labs(x = "Site", y = "CWM", title="Control plots 2012") +
@@ -689,6 +690,8 @@ spp.wts2016C$year <- rep(2016, length(spp.wts2016C$Taxon))
 wts2012_2016 = rbind(spp.wts2012C,spp.wts2016C)
 head(wts2012_2016)
 
+wts2012_2016$year <- as.factor(wts2012_2016$year) # transform to a factor, so it has two levels
+
 # and finally do the merge!
 
 traits.wts <- merge(wts2012_2016, traits.meanvalues, by="Taxon")%>%
@@ -721,30 +724,22 @@ summarize.traits.cwm.W <-   # New dataframe where we can inspect the result
   gather(Traits, CWM, "Wet_Mass_g.log", "Dry_Mass_g.log", "Leaf_Thickness_Ave_mm.log", "Leaf_Area_cm2.log", "SLA_cm2_g", "LDMC", "P_percent", "C_percent", "N_percent", "CN_ratio", "dN15_percent", "dC13_percent")
 ```
 
+
 Step 2: Plot, but specify that you want the different years in different colors!
+
 
 ```{r}
 pd <- position_dodge(0.4)
 
 TraitsCWM <- summarize.traits.cwm.L  %>% 
   mutate(Traits = factor(Traits, levels = c("Wet_Mass_g.log", "Dry_Mass_g.log", "Leaf_Thickness_Ave_mm.log", "Leaf_Area_cm2.log", "SLA_cm2_g", "LDMC", "P_percent", "C_percent", "N_percent", "CN_ratio", "dN15_percent", "dC13_percent"))) %>% 
+   mutate(originSiteID = factor(originSiteID, levels = c("L", "M", "A", "H"))) %>%
   ggplot(aes(x = originSiteID, y=CWM, colour=year)) +
   geom_point(position=pd, shape=17) +
   labs(x = "Site", y = "CWM", title="Control plots 2012-2016") +
   facet_wrap( ~ Traits, scales = "free") +
   theme(legend.position="top", plot.title = element_text(size = (15)))              
 
+
 TraitsCWM 
 ```
-
-
-
-
-
-# PLOT
-pd <- position_dodge(0.4)
-
-
-
-TraitsCWM 
-
