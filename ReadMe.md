@@ -85,8 +85,8 @@ github: <https://github.com/richardjtelford/transplant>
 To download the data, the following function can be used:
 
 ``` r
-# devtools::install_github("Between-the-Fjords/dataDownloader")
-# library("dataDownloader")
+devtools::install_github("Between-the-Fjords/dataDownloader")
+library("dataDownloader")
 ```
 
 ``` r
@@ -97,10 +97,20 @@ get_file(node = "f3knq",
          file = "biomass2015.xls",
          path = "biomass/data",
          remote_path = "RawData")
-# China traits: Full trait data set used in Henn et al. 2018
+# China traits: Leaf traits
 get_file(node = "emzgf",
-         file = "PFTC1.2_China_2015_2016_Traits.csv",
+         file = "PFTC1.2_China_2015_2016_LeafTraits.csv",
          path = "traits/data_cleaned")
+# China traits: Chemical traits
+get_file(node = "emzgf",
+         file = "PFTC1.2_China_2015_2016_ChemicalTraits.csv",
+         path = "traits/data_cleaned")
+
+# China traits: Full trait data set used in Henn et al. 2018
+#get_file(node = "emzgf",
+ #        file = "PFTC1.2_China_2015_2016_Traits.csv",
+  #       path = "traits/data_cleaned")
+
 
 # China community data from the transplants:
 get_file(node = "4hjzu",
@@ -372,13 +382,19 @@ Script: biomass.R
 The data was provided in excel or csv files. The data was checked
 visually for outliers. Outliers and unrealistic values were removed.
 
+    #> NULL
+
 ![Air temperature in °C from 2013 - 2016 in each site along the
 elevational gradient.](ReadMe_files/figure-gfm/AirTempPlot-1.png)
+
+    #> NULL
 
 ![Max, mean and min monthly air temperature in °C in the four summer
 month of 2017 in each site along the elevational gradient. The colour
 indicate the different warming
 treatments.](ReadMe_files/figure-gfm/iButtonPlot-1.png)
+
+    #> NULL
 
 ![Mean monthly air, ground and soil temperature in °C in autumne 2019 at
 the High alpine site. The colour indicate the different warming
