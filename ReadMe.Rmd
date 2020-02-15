@@ -32,8 +32,6 @@ knitr::read_chunk("climate/R/AppendixiButton.R")
 knitr::read_chunk("climate/R/ReadInAirTemp.R")
 
 theme_set(theme_bw(base_size = 12))
-
-
 ```
 # TRANSPLANT EXPERIMENT GONGGA MOUNTAIN - CHINA
 
@@ -86,29 +84,31 @@ The data was processed and analysed using R. All code is stored on github: https
 To download the data, the following function can be used:
 
 ```{r eval=FALSE}
-# devtools::install_github("Between-the-Fjords/dataDownloader")
-# library("dataDownloader")
+devtools::install_github("Between-the-Fjords/dataDownloader")
+library("dataDownloader")
 ```
 
 
 ```{r eval=FALSE}
-
 #Download files from OSF
 #biomass 2015 (this are raw data)
 get_file(node = "f3knq",
          file = "biomass2015.xls",
          path = "biomass/data",
          remote_path = "RawData")
-# China traits: Full trait data set used in Henn et al. 2018
+# China traits: Leaf traits
 get_file(node = "emzgf",
-         file = "PFTC1.2_China_2015_2016_Traits.csv",
+         file = "PFTC1.2_China_2015_2016_LeafTraits.csv",
+         path = "traits/data_cleaned")
+# China traits: Chemical traits
+get_file(node = "emzgf",
+         file = "PFTC1.2_China_2015_2016_ChemicalTraits.csv",
          path = "traits/data_cleaned")
 
 # China community data from the transplants:
 get_file(node = "4hjzu",
          file = "transplant.sqlite",
          path = "community/data")
-
 
 source("community/start_here.R") 
 
@@ -117,11 +117,11 @@ source("community/start_here.R")
 Use the following nodes, files and remote path to download the data:
 
 ```{r echo=FALSE}
-# dat <- gs_title("LocationOfPFTCData")
-# traits <- gs_read(ss = dat, ws = "Tabellenblatt1") %>%
-#   filter(Country == "China") %>%
-#   select(-Country) %>%
-#   knitr::kable()
+#dat <- gs_title("LocationOfPFTCData")
+#traits <- gs_read(ss = dat, ws = "Tabellenblatt1") %>%
+#filter(Country == "China") %>%
+#select(-Country) %>%
+#knitr::kable()
 ```
 
 
@@ -262,6 +262,8 @@ Script: biomass.R
 * Can we trust the graminoid species or should these be merged?
 * There are 2 plots that contain > 20% seedlings (impossible!)
 * a couple of seedlings are huge
+
+
 
 
 
