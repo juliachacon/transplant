@@ -1,6 +1,6 @@
 ---
 title: "R tutorial China"
-output: github_document
+output: html_document
 ---
 
 <style>
